@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -55,6 +57,16 @@ class Article
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $imageFilename;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Commnet", mappedBy="article")
+     */
+    private $commnets;
+
+    public function __construct()
+    {
+        $this->commnets = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -156,5 +168,36 @@ class Article
     public function getImagePath()
     {
         return 'images/'.$this->getImageFilename();
+    }
+
+    /**
+     * @return Collection|Commnet[]
+     */
+    public function getCommnets(): Collection
+    {
+        return $this->commnets;
+    }
+
+    public function addCommnet(Commnet $commnet): self
+    {
+        if (!$this->commnets->contains($commnet)) {
+            $this->commnets[] = $commnet;
+            $commnet->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommnet(Commnet $commnet): self
+    {
+        if ($this->commnets->contains($commnet)) {
+            $this->commnets->removeElement($commnet);
+            // set the owning side to null (unless already changed)
+            if ($commnet->getArticle() === $this) {
+                $commnet->setArticle(null);
+            }
+        }
+
+        return $this;
     }
 }
