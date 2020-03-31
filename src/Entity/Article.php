@@ -59,13 +59,13 @@ class Article
     private $imageFilename;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Commnet", mappedBy="article")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="article")
      */
-    private $commnets;
+    private $comments;
 
     public function __construct()
     {
-        $this->commnets = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId()
@@ -171,30 +171,30 @@ class Article
     }
 
     /**
-     * @return Collection|Commnet[]
+     * @return Collection|Comment[]
      */
-    public function getCommnets(): Collection
+    public function getComments(): Collection
     {
-        return $this->commnets;
+        return $this->comments;
     }
 
-    public function addCommnet(Commnet $commnet): self
+    public function addComment(Comment $comment): self
     {
-        if (!$this->commnets->contains($commnet)) {
-            $this->commnets[] = $commnet;
-            $commnet->setArticle($this);
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setArticle($this);
         }
 
         return $this;
     }
 
-    public function removeCommnet(Commnet $commnet): self
+    public function removeComment(Comment $comment): self
     {
-        if ($this->commnets->contains($commnet)) {
-            $this->commnets->removeElement($commnet);
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
             // set the owning side to null (unless already changed)
-            if ($commnet->getArticle() === $this) {
-                $commnet->setArticle(null);
+            if ($comment->getArticle() === $this) {
+                $comment->setArticle(null);
             }
         }
 

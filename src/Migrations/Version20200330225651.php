@@ -22,9 +22,9 @@ final class Version20200330225651 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE commnet ADD article_id INT NOT NULL');
-        $this->addSql('ALTER TABLE commnet ADD CONSTRAINT FK_7BD564467294869C FOREIGN KEY (article_id) REFERENCES article (id)');
-        $this->addSql('CREATE INDEX IDX_7BD564467294869C ON commnet (article_id)');
+        $this->addSql('ALTER TABLE comment ADD article_id INT NOT NULL');
+        $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_7BD564467294869C FOREIGN KEY (article_id) REFERENCES article (id)');
+        $this->addSql('CREATE INDEX IDX_7BD564467294869C ON comment (article_id)');
     }
 
     public function down(Schema $schema) : void
@@ -32,8 +32,8 @@ final class Version20200330225651 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE commnet DROP FOREIGN KEY FK_7BD564467294869C');
-        $this->addSql('DROP INDEX IDX_7BD564467294869C ON commnet');
-        $this->addSql('ALTER TABLE commnet DROP article_id');
+        $this->addSql('ALTER TABLE comment DROP FOREIGN KEY FK_7BD564467294869C');
+        $this->addSql('DROP INDEX IDX_7BD564467294869C ON comment');
+        $this->addSql('ALTER TABLE comment DROP article_id');
     }
 }

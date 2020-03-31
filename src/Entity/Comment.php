@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CommnetRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
  */
-class Commnet
+class Comment
 {
     use TimestampableEntity;
     /**
@@ -29,9 +29,10 @@ class Commnet
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="commnets")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
+
     private $article;
 
     public function getId()
