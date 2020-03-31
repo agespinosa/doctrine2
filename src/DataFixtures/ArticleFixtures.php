@@ -70,6 +70,7 @@ EOF
             $comment2->setContent('Woohoo! I\'m going on an all-asteroid diet!');
             $comment2->setArticle($article);
             $manager->persist($comment2);
+
         });
 
 
